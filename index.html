@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JP Thomas — Vocalist & Vocal Arranger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --cream: #f5f0e8;
+      --gold: #c9a84c;
+      --deep: #1a1208;
+      --muted: #8a7a60;
+      --line: rgba(201,168,76,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+    /* ── HERO ── */
+    header {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      padding: 4rem 2rem;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,168,76,0.05) 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 700px;
+      animation: fadeUp 1.2s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    .hero-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(.16,1,.3,1) 0.2s both;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(.16,1,.3,1) 0.4s both;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(.16,1,.3,1) 0.6s both;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.4s both;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollLine 1.5s ease-in-out infinite;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    section + section::before {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      position: absolute;
+      top: 0;
+      left: 2rem;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #c8bfaf;
+      max-width: 65ch;
+    }
+
+    p + p { margin-top: 1.2rem; }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .project-card {
+      border: 1px solid var(--line);
+      padding: 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-number {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .project-tag {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--line);
+      padding: 0.25rem 0.6rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--line);
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes scrollLine {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-label">Berklee College of Music — Senior</p>
+      <h1>JP <em>Thomas</em></h1>
+      <p class="hero-sub">Vocalist &nbsp;·&nbsp; Vocal Arranger &nbsp;·&nbsp; Denver, CO</p>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </header>
+
+  <!-- BIO -->
+  <section>
+    <p class="section-label reveal">About</p>
+    <h2 class="reveal">Rooted in the church,<br/>refined on the stage.</h2>
+    <p class="reveal">JP Thomas is a Denver-born vocalist whose musical journey began in the black church and evolved through gospel, R&B, and chorale music, ultimately leading him to discover his passion for vocal arranging. Now a senior at Berklee College of Music, he has arranged vocals for over 20 performances in the past four years, consistently delivering spiritually and emotionally powerful experiences.</p>
+    <p class="reveal">JP's versatile artistry and arranging expertise make him a standout presence in any performance he's part of — bridging sacred tradition with contemporary craft, and bringing a rare emotional intelligence to every arrangement.</p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <p class="section-label reveal">Work</p>
+    <h2 class="reveal">Selected Projects</h2>
+
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <p class="project-number">01</p>
+        <p class="project-title">Gospel Ensemble Arrangements</p>
+        <p class="project-desc">Original multi-part vocal arrangements for Berklee gospel ensembles, blending traditional call-and-response structures with contemporary harmonic language.</p>
+        <span class="project-tag">Vocal Arranging</span>
+      </div>
+
+      <div class="project-card reveal">
+        <p class="project-number">02</p>
+        <p class="project-title">R&B Studio Sessions</p>
+        <p class="project-desc">Background vocal direction and lead vocal performance for independent R&B artists, recorded and produced in Boston-area studios throughout 2023–24.</p>
+        <span class="project-tag">Studio Performance</span>
+      </div>
+
+      <div class="project-card reveal">
+        <p class="project-number">03</p>
+        <p class="project-title">Chorale Performances</p>
+        <p class="project-desc">Performed and arranged for over 20 chorale productions at Berklee, developing a signature sound that fuses classical choral technique with black musical tradition.</p>
+        <span class="project-tag">Live Performance</span>
+      </div>
+
+      <div class="project-card reveal">
+        <p class="project-number">04</p>
+        <p class="project-title">Spiritual Concert Direction</p>
+        <p class="project-desc">Served as vocal director for spiritually-themed concert experiences, curating set arcs designed to move audiences through a full emotional and communal journey.</p>
+        <span class="project-tag">Direction</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>JP Thomas &nbsp;·&nbsp; Berklee College of Music &nbsp;·&nbsp; Built with AI tools</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
