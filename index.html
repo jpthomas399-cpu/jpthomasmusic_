@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -242,6 +243,68 @@
       padding: 0.25rem 0.6rem;
     }
 
+    /* ── TOGGLE SECTION ── */
+    .toggle-wrapper {
+      border: 1px solid var(--line);
+      padding: 2.5rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .toggle-wrapper:hover {
+      border-color: rgba(201,168,76,0.5);
+    }
+
+    .toggle-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 400;
+      color: var(--cream);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      user-select: none;
+      margin-bottom: 0;
+      line-height: 1.2;
+      transition: color 0.2s ease;
+    }
+
+    .toggle-heading:hover { color: var(--gold); }
+
+    .toggle-icon {
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--gold);
+      transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+      flex-shrink: 0;
+    }
+
+    .toggle-heading[aria-expanded="true"] .toggle-icon {
+      transform: rotate(45deg);
+    }
+
+    .toggle-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s cubic-bezier(.16,1,.3,1);
+      overflow: hidden;
+    }
+
+    .toggle-body.open {
+      grid-template-rows: 1fr;
+    }
+
+    .toggle-body p {
+      min-height: 0;
+      padding-top: 0;
+      transition: padding-top 0.4s ease;
+    }
+
+    .toggle-body.open p {
+      padding-top: 1.75rem;
+    }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--line);
@@ -344,13 +407,42 @@
     </div>
   </section>
 
+  <!-- WHAT I CARE ABOUT -->
+  <section>
+    <p class="section-label reveal">Purpose</p>
+
+    <div class="toggle-wrapper reveal">
+      <h2 class="toggle-heading" id="careHeading" onclick="toggleCare()" tabindex="0" role="button" aria-expanded="false">
+        What I Care About Right Now
+        <span class="toggle-icon" aria-hidden="true">+</span>
+      </h2>
+
+      <div class="toggle-body" id="careBody">
+        <p>Right now I'm very curious about the collaboration of gospel music in secular genres and vice versa. I'm also exploring how to further my arranging abilities and make them more adaptable to other styles outside of R&B, Gospel, and Pop. Something else I'm also concerned about is how independent artists can build sustainable lives without having to change who they are for the music industry or even making themselves profitable. If you care about these things as well, my journey is worth watching.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
     <p>JP Thomas &nbsp;·&nbsp; Berklee College of Music &nbsp;·&nbsp; Built with AI tools</p>
   </footer>
 
   <script>
-    // Scroll reveal
+    // Toggle "What I Care About"
+    function toggleCare() {
+      const heading = document.getElementById('careHeading');
+      const body = document.getElementById('careBody');
+      const isOpen = body.classList.toggle('open');
+      heading.setAttribute('aria-expanded', isOpen);
+    }
+
+    // Allow keyboard activation
+    document.getElementById('careHeading').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCare(); }
+    });
+
+
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
